@@ -31,7 +31,7 @@ jobs:
 
       # Build the Flutter web app
       - name: Build Flutter Web
-        run: flutter build web --release
+        run: flutter build web --web-renderer canvaskit --release
 
       # Set up Firebase CLI
       - name: Install Firebase CLI
