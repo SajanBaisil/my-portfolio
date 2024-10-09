@@ -19,7 +19,7 @@ jobs:
     steps:
       # Checkout the code from the main branch
       - uses: actions/checkout@v4
-
+      - uses: dart-lang/setup-dart@v1
       # Set up Flutter on the runner
       - uses: subosito/flutter-action@v2
         with:
