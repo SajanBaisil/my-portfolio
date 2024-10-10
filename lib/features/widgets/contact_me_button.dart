@@ -7,7 +7,8 @@ import '../../shared/theme/theme_getters.dart';
 
 class ContactMeButton extends StatelessWidget {
   const ContactMeButton({
-    super.key, required this.contact,
+    super.key,
+    required this.contact,
   });
 
   final OnTapCallback contact;
