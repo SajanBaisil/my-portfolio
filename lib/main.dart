@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Sajan Baisil Portfolio',
           theme: getApplicationThemeLight(context),
           home: const MainScreen()),
     );
