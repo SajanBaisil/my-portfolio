@@ -429,7 +429,7 @@ class _SkillsSectionState extends State<SkillsSection>
       child: Container(
         key: widget.key,
         color: colorScheme(context).secondary,
-        padding: context.responsivePadding(horizontal: 85.33, vertical: 140),
+        padding: context.responsivePadding(horizontal: 85.33, vertical: 100),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -248,7 +248,7 @@ class HomeSectionWidget extends StatelessWidget {
     return Container(
       key: key,
       color: ColorManager.secondary,
-      padding: context.responsivePadding(horizontal: 85.33, vertical: 133.43),
+      padding: context.responsivePadding(horizontal: 85.33, vertical: 100),
       child: Row(
         children: [
           Column(
