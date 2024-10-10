@@ -23,13 +23,10 @@ class _AboutMeSectionState extends State<AboutMeSection> {
     'Experienced and hard-working app developer with a strong focus on development and innovation.',
     'Proficient in Dart programming language and advanced in Flutter framework for mobile app development.',
     'Strong understanding of mobile app architecture and design patterns for optimal performance.',
-    'Follows clean code principles and industry best practices to ensure maintainability and scalability.',
     'Skilled in writing efficient, reusable, and modular code for both Android and iOS platforms.',
     '\n',
     'Proven track record of delivering high-quality, fully-functional apps on time and within budget.',
     'Adept at collaborating with cross-functional teams including designers, back-end developers, and product managers.',
-    'Experienced in optimizing app performance and ensuring smooth user experiences across devices.',
-    'Continuously learning and staying updated with the latest trends and advancements in Flutter and mobile development.',
     'Familiar with tools for testing, debugging, and deploying mobile applications in production environments.',
   ];
   @override
@@ -37,7 +34,7 @@ class _AboutMeSectionState extends State<AboutMeSection> {
     return Container(
       key: widget.key,
       color: ColorManager.secondary,
-      padding: context.responsivePadding(horizontal: 85.33, vertical: 100),
+      padding: context.responsivePadding(horizontal: 85.33, vertical: 80),
       child: Row(
         children: [
           Image.asset(

@@ -184,10 +184,10 @@ class _MyProjectsSectionState extends State<MyProjectsSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: widget.key,
-      padding: context.responsivePadding(horizontal: 85.33, vertical: 149.33),
+      padding: context.responsivePadding(horizontal: 85.33, vertical: 100),
       decoration: const BoxDecoration(color: ColorManager.secondary),
       child: Column(
+        key: widget.key,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

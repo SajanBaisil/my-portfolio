@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_portfolio_flutter/features/contact-me/logic/contact_me_bloc/contact_me_bloc.dart';
+import 'package:my_portfolio_flutter/shared/logic/shared_cubit/shared_cubit.dart';
 
 import 'features/main_screen.dart';
 import 'firebase_options.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => ContactMeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SharedCubit(),
         ),
       ],
       child: MaterialApp(
