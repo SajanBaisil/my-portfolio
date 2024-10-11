@@ -17,7 +17,11 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorManager.secondary,
+      decoration: BoxDecoration(
+          color: ColorManager.secondary,
+          border: Border.all(
+            color: ColorManager.secondary,
+          )),
       padding: context.responsivePadding(horizontal: 85.33, vertical: 40),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

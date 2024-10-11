@@ -337,8 +337,12 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_portfolio_flutter/features/skills/neumorphic_widget.dart';
+import 'package:my_portfolio_flutter/shared/logic/shared_cubit/shared_cubit.dart';
+import 'package:my_portfolio_flutter/shared/utils/enums.dart';
 import 'package:my_portfolio_flutter/shared/utils/responsive_padding.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../shared/theme/color_manager.dart';
@@ -346,7 +350,11 @@ import '../../shared/theme/theme_getters.dart';
 import '../../shared/utils/assets_manager.dart';
 
 class SkillsSection extends StatefulWidget {
-  const SkillsSection({super.key});
+  const SkillsSection(
+      {super.key, required this.index, required this.controller});
+
+  final int index;
+  final AutoScrollController? controller;
 
   @override
   State<SkillsSection> createState() => _SkillsSectionState();
@@ -417,7 +425,7 @@ class _SkillsSectionState extends State<SkillsSection>
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      key: const ValueKey('AboutScreenKey'),
+      key: Key('${widget.index}'),
       onVisibilityChanged: (vi) {
         if (vi.visibleFraction > 0.1) {
           // Trigger all animations when the widget becomes 10% visible
@@ -425,40 +433,57 @@ class _SkillsSectionState extends State<SkillsSection>
             _startAnimation(i);
           }
         }
+
+        var visiblePercentage = vi.visibleFraction * 100;
+
+        if (visiblePercentage > 20) {
+          context
+              .read<SharedCubit>()
+              .setSelectedSection(selectedSection: SelectedSection.skills);
+        }
       },
-      child: Container(
-        key: widget.key,
-        color: colorScheme(context).secondary,
-        padding: context.responsivePadding(horizontal: 85.33, vertical: 100),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'My Skills',
-              style: textTheme(context).titleMedium?.copyWith(
-                    fontSize: context.responsiveFontSize(64),
-                    color: ColorManager.whiteColor,
-                  ),
-            ),
-            SizedBox(
-              height: context.responsiveHeight(80),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(6, (index) {
-                return _buildSkillItem(index);
-              }),
-            ),
-            SizedBox(
-              height: context.responsiveHeight(40),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(5, (index) {
-                return _buildSkillItem(index + 6);
-              }),
-            ),
-          ],
+      child: AutoScrollTag(
+        index: widget.index,
+        controller: widget.controller!,
+        key: ValueKey(widget.index),
+        child: Container(
+          key: widget.key,
+          decoration: BoxDecoration(
+              color: ColorManager.secondary,
+              border: Border.all(
+                color: ColorManager.secondary,
+              )),
+          padding: context.responsivePadding(horizontal: 85.33, vertical: 100),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'My Skills',
+                style: textTheme(context).titleMedium?.copyWith(
+                      fontSize: context.responsiveFontSize(64),
+                      color: ColorManager.whiteColor,
+                    ),
+              ),
+              SizedBox(
+                height: context.responsiveHeight(80),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(6, (index) {
+                  return _buildSkillItem(index);
+                }),
+              ),
+              SizedBox(
+                height: context.responsiveHeight(40),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(5, (index) {
+                  return _buildSkillItem(index + 6);
+                }),
+              ),
+            ],
+          ),
         ),
       ),
     );
