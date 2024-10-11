@@ -433,21 +433,21 @@ class _ContactMeSectionState extends State<ContactMeSection> {
                   .setSelectedSection(selectedSection: SelectedSection.contact);
             }
           },
-          child: AutoScrollTag(
-            index: widget.index,
-            controller: widget.controller!,
-            key: ValueKey(widget.index),
-            child: Container(
-              key: widget.key,
-              padding: context.responsivePadding(
-                  horizontal: 533.33, vertical: 149.33),
-              decoration: BoxDecoration(
+          child: Container(
+            key: widget.key,
+            padding:
+                context.responsivePadding(horizontal: 533.33, vertical: 149.33),
+            decoration: BoxDecoration(
+                color: ColorManager.secondary,
+                border: Border.all(
                   color: ColorManager.secondary,
-                  border: Border.all(
-                    color: ColorManager.secondary,
-                  )),
-              child: Form(
-                key: _formKey,
+                )),
+            child: Form(
+              key: _formKey,
+              child: AutoScrollTag(
+                index: widget.index,
+                controller: widget.controller!,
+                key: ValueKey(widget.index),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
