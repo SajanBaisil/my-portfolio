@@ -87,7 +87,7 @@ class HomeSectionWidgetMobile extends StatelessWidget {
                   text: TextSpan(
                     text: 'I build',
                     style: textTheme(context).titleMedium?.copyWith(
-                          fontSize: 25.sp,
+                          fontSize: 23.sp,
                           color: ColorManager.whiteColor,
                         ),
                     children: [
@@ -95,14 +95,14 @@ class HomeSectionWidgetMobile extends StatelessWidget {
                         text: ' responsive mobile apps',
                         style: textTheme(context).titleMedium?.copyWith(
                               color: ColorManager.primary,
-                              fontSize: 25.sp,
+                              fontSize: 23.sp,
                             ),
                       ),
                       TextSpan(
                         text:
                             '\nwith a focus on smooth UI \nand optimized performance.',
                         style: textTheme(context).titleMedium?.copyWith(
-                              fontSize: 25.sp,
+                              fontSize: 23.sp,
                               color: ColorManager.whiteColor,
                             ),
                       ),
@@ -113,16 +113,16 @@ class HomeSectionWidgetMobile extends StatelessWidget {
               SizedBox(
                 height: context.responsiveHeight(21.33),
               ),
-              Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nSuspendisse varius enim in eros elementum tristique.',
-                style: textTheme(context).titleSmall?.copyWith(
-                      fontSize: context.responsiveFontSize(21.33),
-                      color: ColorManager.whiteColor,
-                    ),
-              )
-                  .animate()
-                  .fadeIn(delay: 400.ms, duration: 600.ms)
-                  .slideY(begin: 1.0, end: 0.0, curve: Curves.easeOut),
+              // Text(
+              //   'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nSuspendisse varius enim in eros elementum tristique.',
+              //   style: textTheme(context).titleSmall?.copyWith(
+              //         fontSize: context.responsiveFontSize(21.33),
+              //         color: ColorManager.whiteColor,
+              //       ),
+              // )
+              //     .animate()
+              //     .fadeIn(delay: 400.ms, duration: 600.ms)
+              //     .slideY(begin: 1.0, end: 0.0, curve: Curves.easeOut),
               SizedBox(
                 height: context.responsiveHeight(53.33),
               ),
