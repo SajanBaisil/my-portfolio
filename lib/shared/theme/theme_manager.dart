@@ -1,7 +1,9 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_portfolio_flutter/shared/theme/style_manager.dart';
+import 'package:my_portfolio_flutter/shared/utils/device_utils.dart';
 import 'package:my_portfolio_flutter/shared/utils/responsive_padding.dart';
 
 import 'color_manager.dart';
@@ -15,9 +17,9 @@ ThemeData getApplicationThemeLight(BuildContext context) {
     fontFamily: GoogleFonts.poppins().fontFamily,
     canvasColor: ColorManager.whiteColor,
     scaffoldBackgroundColor: ColorManager.whiteColor,
-    iconTheme: const IconThemeData(
+    iconTheme: IconThemeData(
       color: ColorManager.secondary,
-      size: 18,
+      size: DeviceUtils(context).isMobile ? 18.h : context.responsiveHeight(18),
     ),
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
@@ -41,7 +43,9 @@ ThemeData getApplicationThemeLight(BuildContext context) {
       centerTitle: false,
       titleTextStyle: getSemiBoldStyle(
         color: ColorManager.secondary,
-        fontSize: context.responsiveFontSize(18),
+        fontSize: DeviceUtils(context).isMobile
+            ? 18.sp
+            : context.responsiveFontSize(18),
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
@@ -57,11 +61,15 @@ ThemeData getApplicationThemeLight(BuildContext context) {
       fillColor: ColorManager.whiteColor,
       hintStyle: getRegularStyle(
         color: ColorManager.greyTextColor,
-        fontSize: context.responsiveFontSize(14),
+        fontSize: DeviceUtils(context).isMobile
+            ? 14.sp
+            : context.responsiveFontSize(14),
       ),
       errorStyle: getRegularStyle(
         color: ColorManager.red,
-        fontSize: context.responsiveFontSize(14),
+        fontSize: DeviceUtils(context).isMobile
+            ? 14.sp
+            : context.responsiveFontSize(14),
       ),
       prefixIconColor: ColorManager.secondary,
       focusColor: ColorManager.whiteColor,
@@ -96,8 +104,10 @@ ThemeData getApplicationThemeLight(BuildContext context) {
       hourMinuteTextStyle: getRegularStyle(color: ColorManager.secondary),
       dayPeriodColor: ColorManager.primary,
       entryModeIconColor: ColorManager.primary,
-      dialTextStyle: const TextStyle(
-        fontSize: 10,
+      dialTextStyle: TextStyle(
+        fontSize: DeviceUtils(context).isMobile
+            ? 10.sp
+            : context.responsiveFontSize(10),
       ),
       timeSelectorSeparatorColor:
           WidgetStateProperty.all(ColorManager.whiteColor),
@@ -135,14 +145,18 @@ ThemeData getApplicationThemeLight(BuildContext context) {
       dividerColor: ColorManager.lightGreyColor,
       headerHelpStyle: getRegularStyle(
         color: ColorManager.whiteColor,
-        fontSize: context.responsiveFontSize(14),
+        fontSize: DeviceUtils(context).isMobile
+            ? 14.sp
+            : context.responsiveFontSize(14),
       ),
       dayStyle: getRegularStyle(
         color: ColorManager.secondary,
       ),
       headerHeadlineStyle: getSemiBoldStyle(
         color: ColorManager.whiteColor,
-        fontSize: context.responsiveFontSize(18),
+        fontSize: DeviceUtils(context).isMobile
+            ? 18.sp
+            : context.responsiveFontSize(18),
       ),
       rangeSelectionBackgroundColor: ColorManager.whiteColor,
       rangePickerHeaderBackgroundColor: ColorManager.primary,
@@ -151,13 +165,17 @@ ThemeData getApplicationThemeLight(BuildContext context) {
       rangePickerBackgroundColor: ColorManager.whiteColor,
 
       // rangePickerShape: ,
-      rangePickerHeaderHelpStyle: const TextStyle(
+      rangePickerHeaderHelpStyle: TextStyle(
         color: ColorManager.primary,
-        fontSize: 18,
+        fontSize: DeviceUtils(context).isMobile
+            ? 18.sp
+            : context.responsiveFontSize(18),
       ),
-      rangePickerHeaderHeadlineStyle: const TextStyle(
+      rangePickerHeaderHeadlineStyle: TextStyle(
         color: ColorManager.secondary,
-        fontSize: 18,
+        fontSize: DeviceUtils(context).isMobile
+            ? 18.sp
+            : context.responsiveFontSize(18),
         fontWeight: FontWeight.bold,
       ),
     ),
@@ -169,18 +187,24 @@ ThemeData getApplicationThemeLight(BuildContext context) {
       headlineLarge: getSemiBoldStyle(color: ColorManager.whiteColor),
       headlineSmall: getLightStyle(
         color: ColorManager.whiteColor,
-        fontSize: 15,
+        fontSize: DeviceUtils(context).isMobile
+            ? 15.sp
+            : context.responsiveFontSize(15),
       ),
 
       //black text
       headlineMedium: getMediumStyle(
         color: ColorManager.secondary,
-        fontSize: 14,
+        fontSize: DeviceUtils(context).isMobile
+            ? 14.sp
+            : context.responsiveFontSize(14),
       ),
       titleLarge: getBoldStyle(color: ColorManager.secondary),
       titleMedium: getSemiBoldStyle(
         color: ColorManager.secondary,
-        fontSize: 15,
+        fontSize: DeviceUtils(context).isMobile
+            ? 15.sp
+            : context.responsiveFontSize(15),
       ),
       titleSmall: getRegularStyle(color: ColorManager.secondary),
 
@@ -192,13 +216,17 @@ ThemeData getApplicationThemeLight(BuildContext context) {
       //red
       bodyLarge: getRegularStyle(
         color: ColorManager.primary,
-        fontSize: 9,
+        fontSize: DeviceUtils(context).isMobile
+            ? 9.sp
+            : context.responsiveFontSize(9),
       ),
 
       //black shade - input text colo=
       bodyMedium: getRegularStyle(
         color: ColorManager.textFieldTextColor,
-        fontSize: 12,
+        fontSize: DeviceUtils(context).isMobile
+            ? 12.sp
+            : context.responsiveFontSize(12),
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -208,11 +236,15 @@ ThemeData getApplicationThemeLight(BuildContext context) {
       unselectedItemColor: ColorManager.secondary,
       selectedLabelStyle: getRegularStyle(
         color: ColorManager.primary,
-        fontSize: 11,
+        fontSize: DeviceUtils(context).isMobile
+            ? 11.sp
+            : context.responsiveFontSize(11),
       ),
       unselectedLabelStyle: getRegularStyle(
         color: ColorManager.secondary,
-        fontSize: 11,
+        fontSize: DeviceUtils(context).isMobile
+            ? 11.sp
+            : context.responsiveFontSize(11),
       ),
       showSelectedLabels: true,
       showUnselectedLabels: true,

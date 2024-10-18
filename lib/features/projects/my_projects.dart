@@ -151,7 +151,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gradient_animation_text/flutter_gradient_animation_text.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:my_portfolio_flutter/shared/utils/device_utils.dart';
 import 'package:my_portfolio_flutter/shared/utils/responsive_padding.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -194,7 +196,9 @@ class _MyProjectsSectionState extends State<MyProjectsSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: context.responsivePadding(horizontal: 85.33, vertical: 100),
+      padding: DeviceUtils(context).isMobile
+          ? EdgeInsets.symmetric(horizontal: 85.33.w, vertical: 20.h)
+          : context.responsivePadding(horizontal: 85.33, vertical: 100),
       decoration: BoxDecoration(
           color: ColorManager.secondary,
           border: Border.all(
@@ -215,7 +219,9 @@ class _MyProjectsSectionState extends State<MyProjectsSection> {
                   text: Text(
                     widget.title,
                     style: textTheme(context).titleMedium?.copyWith(
-                          fontSize: context.responsiveFontSize(64),
+                          fontSize: DeviceUtils(context).isMobile
+                              ? 20.sp
+                              : context.responsiveFontSize(64),
                           color: ColorManager.whiteColor,
                         ),
                   ),
@@ -245,18 +251,28 @@ class _MyProjectsSectionState extends State<MyProjectsSection> {
                         valueListenable: onHovered,
                         builder: (context, value, _) {
                           return Container(
-                            padding: context.responsivePadding(
-                                horizontal: 21.33, vertical: 13.33),
+                            padding: DeviceUtils(context).isMobile
+                                ? EdgeInsets.symmetric(
+                                    horizontal: 30.w, vertical: 5.h)
+                                : context.responsivePadding(
+                                    horizontal: 21.33, vertical: 13.33),
                             decoration: BoxDecoration(
                                 color: value
                                     ? ColorManager.primary
                                     : ColorManager.secondaryBackground,
                                 borderRadius: BorderRadius.circular(
-                                  context.responsiveRadius(10.667),
+                                  DeviceUtils(context).isMobile
+                                      ? 20.r
+                                      : context.responsiveRadius(10.667),
                                 )),
                             child: Row(
                               children: [
-                                SvgPicture.asset(AssetsManager.globe),
+                                SvgPicture.asset(
+                                  AssetsManager.globe,
+                                  height: DeviceUtils(context).isMobile
+                                      ? 30.h
+                                      : null,
+                                ),
                                 SizedBox(
                                   width: context.responsiveWidth(16),
                                 ),
@@ -267,8 +283,11 @@ class _MyProjectsSectionState extends State<MyProjectsSection> {
                                       .displaySmall
                                       ?.copyWith(
                                           color: ColorManager.whiteColor,
-                                          fontSize: context
-                                              .responsiveFontSize(21.33)),
+                                          fontSize: DeviceUtils(context)
+                                                  .isMobile
+                                              ? 10.sp
+                                              : context
+                                                  .responsiveFontSize(21.33)),
                                 )
                                     .animate()
                                     .fadeIn(
@@ -295,14 +314,15 @@ class _MyProjectsSectionState extends State<MyProjectsSection> {
               ],
             ),
             SizedBox(
-              height: context.responsiveHeight(70),
+              height: DeviceUtils(context).isMobile
+                  ? 30.h
+                  : context.responsiveHeight(70),
             ),
             // Animate the project cards section
             VisibilityDetector(
               key: Key('${widget.index}'),
               onVisibilityChanged: (visibilityInfo) {
                 var visiblePercentage = visibilityInfo.visibleFraction * 100;
-
                 if (visiblePercentage > 20) {
                   context.read<SharedCubit>().setSelectedSection(
                       selectedSection: widget.isBlog
@@ -311,6 +331,7 @@ class _MyProjectsSectionState extends State<MyProjectsSection> {
                 }
               },
               child: SingleChildScrollView(
+                padding: EdgeInsets.zero,
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -319,7 +340,9 @@ class _MyProjectsSectionState extends State<MyProjectsSection> {
                       children: [
                         const ProjectCard(),
                         SizedBox(
-                          width: context.responsiveWidth(15),
+                          width: DeviceUtils(context).isMobile
+                              ? 50.w
+                              : context.responsiveWidth(15),
                         )
                       ],
                     ); // Apply stagger delay for each card

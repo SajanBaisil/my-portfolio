@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:my_portfolio_flutter/features/contact-me/domain/model/contact_model.dart';
 import 'package:my_portfolio_flutter/features/contact-me/logic/contact_me_bloc/contact_me_bloc.dart';
@@ -18,8 +19,8 @@ import '../../shared/theme/color_manager.dart';
 import '../../shared/theme/theme_getters.dart';
 import 'message_textfield.dart';
 
-class ContactMeSection extends StatefulWidget {
-  const ContactMeSection({
+class ContactMeSectionMobile extends StatefulWidget {
+  const ContactMeSectionMobile({
     super.key,
     required this.index,
     required this.controller,
@@ -29,10 +30,10 @@ class ContactMeSection extends StatefulWidget {
   final AutoScrollController? controller;
 
   @override
-  State<ContactMeSection> createState() => _ContactMeSectionState();
+  State<ContactMeSectionMobile> createState() => _ContactMeSectionMobileState();
 }
 
-class _ContactMeSectionState extends State<ContactMeSection> {
+class _ContactMeSectionMobileState extends State<ContactMeSectionMobile> {
   final ValueNotifier<bool> onHovered = ValueNotifier(false);
   final nameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -138,8 +139,7 @@ class _ContactMeSectionState extends State<ContactMeSection> {
           },
           child: Container(
             key: widget.key,
-            padding:
-                context.responsivePadding(horizontal: 533.33, vertical: 149.33),
+            padding: EdgeInsets.symmetric(horizontal: 100.w, vertical: 50.h),
             decoration: BoxDecoration(
                 color: ColorManager.secondary,
                 border: Border.all(
@@ -155,12 +155,11 @@ class _ContactMeSectionState extends State<ContactMeSection> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // Title Animations
-                    Text(
-                      'Get In Touch',
-                      style: textTheme(context).titleMedium?.copyWith(
-                          color: ColorManager.whiteColor,
-                          fontSize: context.responsiveFontSize(21.33)),
-                    )
+                    Text('Get In Touch',
+                            style: textTheme(context).titleMedium?.copyWith(
+                                  color: ColorManager.whiteColor,
+                                  fontSize: 12.sp,
+                                ))
                         .animate()
                         .fadeIn(duration: 600.ms) // Fade in title
                         .slideY(
@@ -174,7 +173,7 @@ class _ContactMeSectionState extends State<ContactMeSection> {
                     Text(
                       'Contact me',
                       style: textTheme(context).titleMedium?.copyWith(
-                            fontSize: context.responsiveFontSize(64),
+                            fontSize: 20.sp,
                             color: ColorManager.whiteColor,
                           ),
                     )
@@ -187,93 +186,67 @@ class _ContactMeSectionState extends State<ContactMeSection> {
                             end: 0,
                             curve: Curves.easeOut), // Slide down
                     SizedBox(
-                      height: context.responsiveHeight(64),
+                      height: 20.h,
                     ),
 
                     // First and Last Name Animations
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: MessageTextField(
-                            minLines: 1,
-                            maxLines: 1,
-                            messageController: nameController,
-                            showMessageTitle: true,
-                            messageTitle: 'First Name',
-                            validate: validateFirstName,
-                          )
-                              .animate()
-                              .fadeIn(
-                                  delay: 500.ms,
-                                  duration: 600.ms) // Fade and slide in
-                              .slideX(
-                                  begin: -1.0, end: 0.0, curve: Curves.easeOut),
-                        ),
-                        SizedBox(
-                          width: context.responsiveWidth(20),
-                        ),
-                        Expanded(
-                          child: MessageTextField(
-                            minLines: 1,
-                            maxLines: 1,
-                            messageController: lastNameController,
-                            showMessageTitle: true,
-                            messageTitle: 'Last Name',
-                          )
-                              .animate()
-                              .fadeIn(delay: 600.ms, duration: 600.ms)
-                              .slideX(
-                                  begin: 1.0,
-                                  end: 0.0,
-                                  curve: Curves.easeOut), // Slide in from right
-                        ),
-                      ],
-                    ),
+                    MessageTextField(
+                      minLines: 1,
+                      maxLines: 1,
+                      messageController: nameController,
+                      showMessageTitle: true,
+                      messageTitle: 'First Name',
+                      validate: validateFirstName,
+                    )
+                        .animate()
+                        .fadeIn(
+                            delay: 500.ms,
+                            duration: 600.ms) // Fade and slide in
+                        .slideX(begin: -1.0, end: 0.0, curve: Curves.easeOut),
                     SizedBox(
-                      height: context.responsiveHeight(32),
+                      height: 10.sp,
                     ),
+                    MessageTextField(
+                      minLines: 1,
+                      maxLines: 1,
+                      messageController: lastNameController,
+                      showMessageTitle: true,
+                      messageTitle: 'Last Name',
+                    )
+                        .animate()
+                        .fadeIn(delay: 600.ms, duration: 600.ms)
+                        .slideX(begin: 1.0, end: 0.0, curve: Curves.easeOut),
+                    SizedBox(height: 20.h),
 
                     // Email and Phone Number Animations
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: MessageTextField(
-                            minLines: 1,
-                            maxLines: 1,
-                            messageController: emailController,
-                            showMessageTitle: true,
-                            messageTitle: 'Email',
-                            validate: validateEmail,
-                          )
-                              .animate()
-                              .fadeIn(delay: 700.ms, duration: 600.ms)
-                              .slideX(
-                                  begin: -1.0, end: 0.0, curve: Curves.easeOut),
-                        ),
-                        SizedBox(
-                          width: context.responsiveWidth(20),
-                        ),
-                        Expanded(
-                          child: MessageTextField(
-                            minLines: 1,
-                            maxLines: 1,
-                            messageController: phoneController,
-                            showMessageTitle: true,
-                            keyboardType: TextInputType.number,
-                            messageTitle: 'Phone number',
-                            validate: (val) => validatePhone(val ?? ""),
-                          )
-                              .animate()
-                              .fadeIn(delay: 800.ms, duration: 600.ms)
-                              .slideX(
-                                  begin: 1.0, end: 0.0, curve: Curves.easeOut),
-                        ),
-                      ],
-                    ),
+                    MessageTextField(
+                      minLines: 1,
+                      maxLines: 1,
+                      messageController: emailController,
+                      showMessageTitle: true,
+                      messageTitle: 'Email',
+                      validate: validateEmail,
+                    )
+                        .animate()
+                        .fadeIn(delay: 700.ms, duration: 600.ms)
+                        .slideX(begin: -1.0, end: 0.0, curve: Curves.easeOut),
                     SizedBox(
-                      height: context.responsiveHeight(32),
+                      height: 10.h,
+                    ),
+                    MessageTextField(
+                      minLines: 1,
+                      maxLines: 1,
+                      messageController: phoneController,
+                      showMessageTitle: true,
+                      keyboardType: TextInputType.number,
+                      messageTitle: 'Phone number',
+                      validate: (val) => validatePhone(val ?? ""),
+                    )
+                        .animate()
+                        .fadeIn(delay: 800.ms, duration: 600.ms)
+                        .slideX(begin: 1.0, end: 0.0, curve: Curves.easeOut),
+                    SizedBox(
+                      height: 20.h,
                     ),
 
                     // Message Field Animation
@@ -289,7 +262,7 @@ class _ContactMeSectionState extends State<ContactMeSection> {
                         .fadeIn(delay: 900.ms, duration: 600.ms)
                         .slideY(begin: 0.5, end: 0.0, curve: Curves.easeOut),
                     SizedBox(
-                      height: context.responsiveHeight(32),
+                      height: 40.h,
                     ),
 
                     /// Submit Button Animation
@@ -310,22 +283,20 @@ class _ContactMeSectionState extends State<ContactMeSection> {
                               },
                               builder: (context, contactAddStatus) {
                                 return Container(
-                                  padding: context.responsivePadding(
-                                      horizontal: 42.67, vertical: 18.67),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 15.h, horizontal: 50.w),
                                   decoration: BoxDecoration(
                                     color: value
                                         ? ColorManager.secondaryBackground
                                         : colorScheme(context).primary,
-                                    borderRadius: BorderRadius.circular(
-                                        context.responsiveRadius(8)),
+                                    borderRadius: BorderRadius.circular(20.r),
                                   ),
                                   child: contactAddStatus ==
                                           DataFetchStatus.waiting
                                       ? SizedBox(
-                                          width: context.responsiveWidth(32),
+                                          width: 100.w,
                                           child: SpinKitThreeBounce(
-                                            size:
-                                                context.responsiveRadius(21.33),
+                                            size: 10.h,
                                             color: ColorManager.whiteColor,
                                           ),
                                         )
@@ -336,9 +307,7 @@ class _ContactMeSectionState extends State<ContactMeSection> {
                                               ?.copyWith(
                                                   color:
                                                       ColorManager.whiteColor,
-                                                  fontSize: context
-                                                      .responsiveFontSize(
-                                                          21.33)),
+                                                  fontSize: 16.sp),
                                         ),
                                 );
                               },
@@ -363,6 +332,7 @@ class _ContactMeSectionState extends State<ContactMeSection> {
   void _submitForm() async {
     if (_formKey.currentState?.validate() ?? false) {
       // Store the data in Firebase
+      primaryFocus?.unfocus();
       await _saveContactDetails();
     }
   }
@@ -375,5 +345,6 @@ class _ContactMeSectionState extends State<ContactMeSection> {
     final lastName = lastNameController.text.trim();
     context.read<ContactMeBloc>().add(AddContactDetailsToCloud(
         ContactDetails(name, lastName, email, phone, message)));
+    _formKey.currentState?.reset();
   }
 }
