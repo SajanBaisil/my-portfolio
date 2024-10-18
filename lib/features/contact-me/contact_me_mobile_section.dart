@@ -1,8 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gradient_animation_text/flutter_gradient_animation_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:my_portfolio_flutter/features/contact-me/domain/model/contact_model.dart';
@@ -170,13 +172,29 @@ class _ContactMeSectionMobileState extends State<ContactMeSectionMobile> {
                     SizedBox(
                       height: context.responsiveHeight(21.33),
                     ),
-                    Text(
-                      'Contact me',
-                      style: textTheme(context).titleMedium?.copyWith(
-                            fontSize: 20.sp,
-                            color: ColorManager.whiteColor,
-                          ),
+                    GradientAnimationText(
+                      text: Text(
+                        'Contact me',
+                        style: textTheme(context).titleMedium?.copyWith(
+                              fontSize: 20.sp,
+                              color: ColorManager.whiteColor,
+                            ),
+                      ),
+                      // Slide-in from top
+                      colors: const [
+                        ColorManager.primary,
+                        ColorManager.secondaryBackground,
+                      ],
+                      duration: const Duration(seconds: 5),
+                      transform: const GradientRotation(math.pi / 4),
                     )
+                        // Text(
+                        //   'Contact me',
+                        //   style: textTheme(context).titleMedium?.copyWith(
+                        //         fontSize: 20.sp,
+                        //         color: ColorManager.whiteColor,
+                        //       ),
+                        // )
                         .animate()
                         .fadeIn(
                             delay: 300.ms,
