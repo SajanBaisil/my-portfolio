@@ -32,7 +32,7 @@ class FooterSection extends StatelessWidget {
             'Copyright© 2024 Sajan Baisil. All Rights Reserved.',
             style: textTheme(context).labelSmall?.copyWith(
                 color: ColorManager.whiteColor,
-                fontSize: DeviceUtils(context).isMobile ? 10.sp : null),
+                fontSize: DeviceUtils(context).isMobile ? 8.sp : null),
           ),
           Row(
             children: [
@@ -49,7 +49,7 @@ class FooterSection extends StatelessWidget {
                     padding: EdgeInsets.all(context.responsiveRadius(10)),
                     child: SvgPicture.asset(
                       AssetsManager.facebook,
-                      height: DeviceUtils(context).isMobile ? 20.sp : null,
+                      height: DeviceUtils(context).isMobile ? 18.sp : null,
                       color: ColorManager.whiteColor,
                     ),
                   )).animate().fadeIn(duration: 800.ms),
@@ -68,7 +68,7 @@ class FooterSection extends StatelessWidget {
                     padding: EdgeInsets.all(context.responsiveRadius(10)),
                     child: SvgPicture.asset(
                       AssetsManager.instagram,
-                      height: DeviceUtils(context).isMobile ? 20.sp : null,
+                      height: DeviceUtils(context).isMobile ? 18.sp : null,
                       color: ColorManager.whiteColor,
                     ),
                   )).animate().fadeIn(duration: 800.ms),
@@ -89,7 +89,7 @@ class FooterSection extends StatelessWidget {
                     child: SvgPicture.asset(
                       AssetsManager.linkedin,
                       color: ColorManager.whiteColor,
-                      height: DeviceUtils(context).isMobile ? 20.sp : null,
+                      height: DeviceUtils(context).isMobile ? 18.sp : null,
                     ),
                   )).animate().fadeIn(duration: 800.ms),
             ],
