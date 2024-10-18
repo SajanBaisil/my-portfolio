@@ -123,9 +123,9 @@ class HomeSectionWidgetMobile extends StatelessWidget {
               //     .animate()
               //     .fadeIn(delay: 400.ms, duration: 600.ms)
               //     .slideY(begin: 1.0, end: 0.0, curve: Curves.easeOut),
-              SizedBox(
-                height: context.responsiveHeight(53.33),
-              ),
+              // SizedBox(
+              //   height: context.responsiveHeight(53.33),
+              // ),
               SizedBox(
                 width: double.infinity,
                 child: const DownloadResumeButtonMobile().animate().fadeIn(

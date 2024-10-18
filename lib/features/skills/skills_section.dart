@@ -122,7 +122,9 @@ class _SkillsSectionState extends State<SkillsSection>
                 color: ColorManager.secondary,
               )),
           padding: DeviceUtils(context).isMobile
-              ? EdgeInsets.symmetric(horizontal: 85.33.w, vertical: 30.h)
+              ? EdgeInsets.symmetric(
+                  horizontal: 85.33.w,
+                )
               : context.responsivePadding(horizontal: 85.33, vertical: 100),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +151,9 @@ class _SkillsSectionState extends State<SkillsSection>
                   .fadeIn(duration: 800.ms) // Fade-in animation
                   .slideY(begin: -0.5, end: 0.0, curve: Curves.easeOut),
               SizedBox(
-                height: context.responsiveHeight(80),
+                height: DeviceUtils(context).isMobile
+                    ? 20.sp
+                    : context.responsiveHeight(80),
               ),
               DeviceUtils(context).isMobile
                   ? SizedBox(

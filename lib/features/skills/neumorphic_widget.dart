@@ -80,11 +80,15 @@ class CustomNeumorphism extends StatelessWidget {
               isIconSvg
                   ? SvgPicture.asset(
                       icon,
-                      height: context.responsiveHeight(83),
+                      height: DeviceUtils(context).isMobile
+                          ? 60.h
+                          : context.responsiveHeight(83),
                     )
                   : Image.asset(
                       icon,
-                      height: context.responsiveHeight(83),
+                      height: DeviceUtils(context).isMobile
+                          ? 60.h
+                          : context.responsiveHeight(83),
                     ),
               SizedBox(
                 height: context.responsiveHeight(25),
@@ -93,7 +97,7 @@ class CustomNeumorphism extends StatelessWidget {
                 title,
                 style: textTheme(context).titleMedium?.copyWith(
                       fontSize: DeviceUtils(context).isMobile
-                          ? 16.sp
+                          ? 14.sp
                           : context.responsiveFontSize(23),
                       color: ColorManager.whiteColor,
                     ),
