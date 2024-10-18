@@ -62,7 +62,7 @@ class HomeSectionWidgetMobile extends StatelessWidget {
                 'Hey, I am Sajan Baisil',
                 style: textTheme(context).titleSmall?.copyWith(
                       color: ColorManager.whiteColor,
-                      fontSize: 21.33.sp,
+                      fontSize: 16.sp,
                     ),
               )
                   .animate()
@@ -87,7 +87,7 @@ class HomeSectionWidgetMobile extends StatelessWidget {
                   text: TextSpan(
                     text: 'I build',
                     style: textTheme(context).titleMedium?.copyWith(
-                          fontSize: 23.sp,
+                          fontSize: 20.sp,
                           color: ColorManager.whiteColor,
                         ),
                     children: [
@@ -95,14 +95,14 @@ class HomeSectionWidgetMobile extends StatelessWidget {
                         text: ' responsive mobile apps',
                         style: textTheme(context).titleMedium?.copyWith(
                               color: ColorManager.primary,
-                              fontSize: 23.sp,
+                              fontSize: 20.sp,
                             ),
                       ),
                       TextSpan(
                         text:
                             '\nwith a focus on smooth UI \nand optimized performance.',
                         style: textTheme(context).titleMedium?.copyWith(
-                              fontSize: 23.sp,
+                              fontSize: 20.sp,
                               color: ColorManager.whiteColor,
                             ),
                       ),
