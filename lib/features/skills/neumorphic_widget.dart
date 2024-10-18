@@ -1,9 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_portfolio_flutter/shared/theme/color_manager.dart';
 import 'package:my_portfolio_flutter/shared/theme/theme_getters.dart';
+import 'package:my_portfolio_flutter/shared/utils/device_utils.dart';
 import 'package:my_portfolio_flutter/shared/utils/responsive_padding.dart';
 
 class CustomNeumorphism extends StatelessWidget {
@@ -31,7 +33,8 @@ class CustomNeumorphism extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: context.responsiveWidth(180),
+      width:
+          DeviceUtils(context).isMobile ? 400.w : context.responsiveWidth(180),
       padding: context.responsivePadding(horizontal: 20, vertical: 20),
       decoration: BoxDecoration(
         color: Colors.black
@@ -89,7 +92,9 @@ class CustomNeumorphism extends StatelessWidget {
               Text(
                 title,
                 style: textTheme(context).titleMedium?.copyWith(
-                      fontSize: context.responsiveFontSize(23),
+                      fontSize: DeviceUtils(context).isMobile
+                          ? 16.sp
+                          : context.responsiveFontSize(23),
                       color: ColorManager.whiteColor,
                     ),
               ),

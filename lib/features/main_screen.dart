@@ -168,11 +168,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_portfolio_flutter/features/about/about_section_mobile.dart';
+import 'package:my_portfolio_flutter/features/contact-me/contact_me_mobile_section.dart';
+import 'package:my_portfolio_flutter/features/home/home_section_mobile.dart';
+import 'package:my_portfolio_flutter/features/widgets/appbar_mobile.dart';
 import 'package:my_portfolio_flutter/shared/logic/shared_cubit/shared_cubit.dart';
-import 'package:my_portfolio_flutter/shared/utils/responsive_padding.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../shared/theme/color_manager.dart';
+import '../shared/utils/device_utils.dart';
 import '../shared/utils/enums.dart';
 import 'about/about_me.dart';
 import 'contact-me/contact_me_section.dart';
@@ -190,10 +195,13 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   AutoScrollController? _autoScrollController;
   final scrollDirection = Axis.vertical;
   final scfKey = GlobalKey<ScaffoldState>();
+  AnimationController? controller;
+  Animation<double>? sizeAnimation;
+  final ValueNotifier<bool> _isExpanded = ValueNotifier(false);
 
   // Scroll to a specific section using the GlobalKey's position in the list
   void _scrollToSection(int index) async {
@@ -210,78 +218,141 @@ class _MainScreenState extends State<MainScreen> {
           Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
       axis: scrollDirection,
     );
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    sizeAnimation = Tween<double>(begin: 0, end: 180)
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeIn));
   }
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       key: scfKey,
       body: CustomScrollView(
         shrinkWrap: true,
         controller: _autoScrollController,
         slivers: [
-          SliverAppBar(
-            key: const ValueKey('appBar'),
-            backgroundColor: ColorManager.secondary,
-            pinned: true,
-            toolbarHeight: context.responsiveHeight(120),
-            centerTitle: true,
-            title: AppBarTitleWidget(
-              home: () {
-                _scrollToSection(0);
-                setSelectedSection(context,
-                    selectedSection: SelectedSection.home);
-              },
-              about: () {
-                _scrollToSection(1);
-                setSelectedSection(context,
-                    selectedSection: SelectedSection.aboutMe);
-              },
-              projects: () {
-                _scrollToSection(2);
-                setSelectedSection(context,
-                    selectedSection: SelectedSection.projects);
-              },
-              skills: () {
-                _scrollToSection(3);
-                setSelectedSection(context,
-                    selectedSection: SelectedSection.skills);
-              },
-              blogs: () {
-                _scrollToSection(4);
-                setSelectedSection(context,
-                    selectedSection: SelectedSection.blogs);
-              },
-            ),
-            actions: [
-              /// contact me button
-              ContactMeButton(
-                contact: () {
-                  _scrollToSection(5); // Use section6Key for ContactMeSection
-                  setSelectedSection(context,
-                      selectedSection: SelectedSection.contact);
-                },
-              ),
-              SizedBox(
-                width: context.responsiveWidth(85.33),
-              )
-            ],
-          ),
+          DeviceUtils(context).isMobile
+              ? AnimatedBuilder(
+                  animation: sizeAnimation!,
+                  builder: (context, _) {
+                    return ValueListenableBuilder(
+                        valueListenable: _isExpanded,
+                        builder: (context, isExpanded, _) {
+                          return SliverAppBar(
+                            backgroundColor: ColorManager.secondary,
+                            pinned: true,
+                            actions: [
+                              AnimatedSize(
+                                duration: const Duration(milliseconds: 300),
+                                child: !isExpanded
+                                    ? InkWell(
+                                        onTap: () {
+                                          _handleOnTapMenu(isExpanded);
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(10.r),
+                                          child: const Icon(
+                                            Icons.menu,
+                                            color: ColorManager.whiteColor,
+                                          ),
+                                        ),
+                                      )
+                                    : const SizedBox(),
+                              ),
+                              SizedBox(
+                                width: 30.sp,
+                              )
+                            ],
+                            bottom: isExpanded
+                                ? PreferredSize(
+                                    preferredSize: Size(width, 177.h),
+                                    child: AppBarBottomMobile(
+                                      width: width,
+                                      isExpanded: _isExpanded,
+                                    ))
+                                : const PreferredSize(
+                                    preferredSize: Size(0, 0),
+                                    child: SizedBox()),
+                          );
+                        });
+                  })
+              : SliverAppBar(
+                  key: const ValueKey('appBar'),
+                  backgroundColor: ColorManager.secondary,
+                  pinned: true,
+                  toolbarHeight: 120.sp,
+                  centerTitle: true,
+                  title: AppBarTitleWidget(
+                    home: () {
+                      _scrollToSection(0);
+                      setSelectedSection(context,
+                          selectedSection: SelectedSection.home);
+                    },
+                    about: () {
+                      _scrollToSection(1);
+                      setSelectedSection(context,
+                          selectedSection: SelectedSection.aboutMe);
+                    },
+                    projects: () {
+                      _scrollToSection(2);
+                      setSelectedSection(context,
+                          selectedSection: SelectedSection.projects);
+                    },
+                    skills: () {
+                      _scrollToSection(3);
+                      setSelectedSection(context,
+                          selectedSection: SelectedSection.skills);
+                    },
+                    blogs: () {
+                      _scrollToSection(4);
+                      setSelectedSection(context,
+                          selectedSection: SelectedSection.blogs);
+                    },
+                  ),
+                  actions: [
+                    /// contact me button
+                    ContactMeButton(
+                      contact: () {
+                        _scrollToSection(
+                            5); // Use section6Key for ContactMeSection
+                        setSelectedSection(context,
+                            selectedSection: SelectedSection.contact);
+                      },
+                    ),
+                    SizedBox(
+                      width: 85.33.sp,
+                    )
+                  ],
+                ),
           SliverList(
             key: const ValueKey('list'),
             delegate: SliverChildListDelegate(
               [
                 /// home section
-                HomeSectionWidget(
-                  index: 0,
-                  controller: _autoScrollController,
-                ),
+                DeviceUtils(context).isMobile
+                    ? HomeSectionWidgetMobile(
+                        index: 0,
+                        controller: _autoScrollController,
+                      )
+                    : HomeSectionWidget(
+                        index: 0,
+                        controller: _autoScrollController,
+                      ),
 
                 /// about section
-                AboutMeSection(
-                  index: 1,
-                  controller: _autoScrollController,
-                ),
+                DeviceUtils(context).isMobile
+                    ? AboutSectionMobile(
+                        index: 1,
+                        controller: _autoScrollController,
+                      )
+                    : AboutMeSection(
+                        index: 1,
+                        controller: _autoScrollController,
+                      ),
 
                 /// my projects
                 MyProjectsSection(
@@ -306,10 +377,15 @@ class _MainScreenState extends State<MainScreen> {
                 ),
 
                 ///contact me section
-                ContactMeSection(
-                  index: 5,
-                  controller: _autoScrollController,
-                ),
+                DeviceUtils(context).isMobile
+                    ? ContactMeSectionMobile(
+                        index: 5,
+                        controller: _autoScrollController,
+                      )
+                    : ContactMeSection(
+                        index: 5,
+                        controller: _autoScrollController,
+                      ),
 
                 /// footer
                 const FooterSection()
@@ -319,6 +395,10 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
     );
+  }
+
+  void _handleOnTapMenu(bool isExpanded) {
+    _isExpanded.value = !isExpanded;
   }
 
   void setSelectedSection(BuildContext context,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio_flutter/shared/theme/color_manager.dart';
+import 'package:my_portfolio_flutter/shared/utils/device_utils.dart';
 import 'package:my_portfolio_flutter/shared/utils/responsive_padding.dart';
 
 import '../../shared/theme/theme_getters.dart';
@@ -65,7 +67,9 @@ class _MessageTextFieldState extends State<MessageTextField> {
           height: context.responsiveHeight(10),
         ),
         TextFormField(
-          scrollPadding: EdgeInsets.only(bottom: context.responsiveHeight(150)),
+          scrollPadding: DeviceUtils(context).isMobile
+              ? EdgeInsets.only(bottom: 150.h)
+              : EdgeInsets.only(bottom: context.responsiveHeight(150)),
           enabled: widget.enabled,
           minLines: widget.minLines,
           readOnly: widget.readOnly,
@@ -78,7 +82,9 @@ class _MessageTextFieldState extends State<MessageTextField> {
           keyboardType: widget.keyboardType,
           textCapitalization: TextCapitalization.sentences,
           style: textTheme(context).bodyMedium?.copyWith(
-              fontSize: context.responsiveFontSize(14),
+              fontSize: DeviceUtils(context).isMobile
+                  ? 12.sp
+                  : context.responsiveFontSize(14),
               color: ColorManager.whiteColor),
           decoration: InputDecoration(
             hintText: widget.hintText,

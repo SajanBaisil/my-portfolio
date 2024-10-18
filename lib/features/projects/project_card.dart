@@ -286,6 +286,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_portfolio_flutter/shared/utils/device_utils.dart';
 import 'package:my_portfolio_flutter/shared/utils/responsive_padding.dart';
 
 import '../../shared/theme/theme_getters.dart';
@@ -348,7 +350,10 @@ class _ProjectCardState extends State<ProjectCard>
   Widget build(BuildContext context) {
     return Container(
       padding: context.responsivePadding(horizontal: 20, vertical: 20),
-      width: context.responsiveWidth(554.666),
+      // height: DeviceUtils(context).isMobile ? 280.h : null,
+      width: DeviceUtils(context).isMobile
+          ? 800.w
+          : context.responsiveWidth(554.666),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -383,9 +388,11 @@ class _ProjectCardState extends State<ProjectCard>
               opacity: _fadeAnimation,
               child: AnimatedCrossFade(
                 duration: const Duration(milliseconds: 300),
-                crossFadeState: _selectedImage == _mainImage
-                    ? CrossFadeState.showSecond
-                    : CrossFadeState.showFirst,
+                crossFadeState:
+                    // _selectedImage == _mainImage
+                    //     ? CrossFadeState.showSecond
+                    //     :
+                    CrossFadeState.showFirst,
                 secondChild: ProjectImageSection(
                   image: _mainImage,
                 ),
@@ -395,25 +402,25 @@ class _ProjectCardState extends State<ProjectCard>
               ),
             ),
           ),
-          SizedBox(height: context.responsiveHeight(10)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: _otherImages.map((imagePath) {
-              return InkWell(
-                onTap: () {
-                  _swapImages(imagePath);
-                },
-                child: AnimatedCrossFade(
-                  duration: const Duration(milliseconds: 300),
-                  crossFadeState: _selectedImage == imagePath
-                      ? CrossFadeState.showSecond
-                      : CrossFadeState.showFirst,
-                  secondChild: ProjectOtherImagesSection(image: imagePath),
-                  firstChild: ProjectOtherImagesSection(image: imagePath),
-                ).animate().fadeIn(duration: 300.ms), // Smooth image fade-in
-              );
-            }).toList(),
-          ),
+          // SizedBox(height: context.responsiveHeight(10)),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: _otherImages.map((imagePath) {
+          //     return InkWell(
+          //       onTap: () {
+          //         _swapImages(imagePath);
+          //       },
+          //       child: AnimatedCrossFade(
+          //         duration: const Duration(milliseconds: 300),
+          //         crossFadeState: _selectedImage == imagePath
+          //             ? CrossFadeState.showSecond
+          //             : CrossFadeState.showFirst,
+          //         secondChild: ProjectOtherImagesSection(image: imagePath),
+          //         firstChild: ProjectOtherImagesSection(image: imagePath),
+          //       ).animate().fadeIn(duration: 300.ms), // Smooth image fade-in
+          //     );
+          //   }).toList(),
+          // ),
         ],
       ),
     );
@@ -480,22 +487,14 @@ class ProjectImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.white.withOpacity(0.1),
-          width: 2,
-        ),
-        borderRadius: BorderRadius.circular(
-          context.responsiveRadius(8),
-        ),
-      ),
-      child: Image.asset(
-        image,
-        height: context.responsiveHeight(400),
-        width: context.responsiveWidth(554.666),
-      ).animate().fadeIn(duration: 500.ms), // Main image fade-in effect
-    );
+    return Image.asset(
+      image,
+      height:
+          DeviceUtils(context).isMobile ? 180.h : context.responsiveHeight(400),
+      width: DeviceUtils(context).isMobile
+          ? 400.h
+          : context.responsiveWidth(554.666),
+    ).animate().fadeIn(duration: 500.ms);
   }
 }
 
@@ -507,7 +506,9 @@ class ProjectTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: context.responsivePadding(horizontal: 30, vertical: 10),
+      padding: DeviceUtils(context).isMobile
+          ? EdgeInsets.symmetric(horizontal: 30.w, vertical: 5.h)
+          : context.responsivePadding(horizontal: 30, vertical: 10),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -528,7 +529,9 @@ class ProjectTitleWidget extends StatelessWidget {
       child: Text(
         'Easify',
         style: textTheme(context).titleMedium?.copyWith(
-              fontSize: context.responsiveFontSize(18),
+              fontSize: DeviceUtils(context).isMobile
+                  ? 10.sp
+                  : context.responsiveFontSize(18),
               color: colorScheme(context).onSecondary,
             ),
       ),
